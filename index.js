@@ -25,8 +25,8 @@ app.get('/',(req,res)=>{
 app.post('/webhook',line.middleware(config),(req,res)=>{
     console.log(req.body.events);
     
-    if(userid.indexOf(req.body.events.source.userId)<0){
-        userid.push(req.body.events.source.userId);
+    if(userid.indexOf(req.body.events[0].source.userId)<0){
+        userid.push(req.body.events[0].source.userId);
     }
     console.log(userid);
     Promise
