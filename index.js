@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 const line = require('@line/bot-sdk');
+const cors = require('cors');
 //config server
 const PORT = process.env.PORT || 5000
 const config = {
@@ -17,6 +18,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({  
   extended: true  
 }));
+app.use(cors());
+app.options('*', cors());
 //route
 app.get('/',(req,res)=>{
     console.log("hello");
