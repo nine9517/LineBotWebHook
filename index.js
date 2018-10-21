@@ -8,13 +8,13 @@ const cors = require('cors');
 //config server
 const PORT = process.env.PORT || 5000
 const config = {
-    channelAccessToken: '9aBu0iqVaSC0d0Wlq3rLt+lpLkMy/i1Ek9Q5aNXkboEg0TD0wKrq3o8QvhehDMwdiYz9XkVYyfVpQmwHwqdR1U0x/x9RUx/8BlrYVJaG39ay4ofx6Zg9lod7TaG+fLzqwa/OatDNqW2oiuWeB86l3QdB04t89/1O/w1cDnyilFU=',
+    channelAccessToken: '6iv3Lw1+HVm1S8Was+bZ4qEXNZMz9DkwcdPCMNsxjaJ5bVe/jJRPvnUX1UFJwKJZiYz9XkVYyfVpQmwHwqdR1U0x/x9RUx/8BlrYVJaG39ZK17ACAPySL4+7HyQoSiYQebTT62juysiilG9pZhDWoAdB04t89/1O/w1cDnyilFU=',
     channelSecret: '68a1609f570a62390629a9e5c705f742'
   };
 const lineClient = new line.Client(config);
+const userid = [];
 //config express
 app.use(morgan('dev'));
-
 app.use(cors());
 app.options('*', cors());
 //route
@@ -22,27 +22,23 @@ app.get('/',(req,res)=>{
     console.log("hello");
     res.send("Welcome to Line Bot API");
 });
-app.get('/config/token/:token',(req,res)=>{
-    config = {
-        channelAccessToken: req.params.token,
-        channelSecret: '68a1609f570a62390629a9e5c705f742'
-      };
-    lineClient = new line.Client(config);
-    res.send("Config Success");
-});
 app.post('/webhook',line.middleware(config),(req,res)=>{
     console.log(req.body.events);
+    
+    if(userid.indexOf(req.body.events.source.userId)<0){
+        userid.push(req.body.events.source.userId);
+    }
+    console.log(userid);
     Promise
     .all(req.body.events.map(handleEvent))
     .then((result) => res.json(result));
 });
 
 app.post('/alert/login/facebook',bodyParser.json(),(req,res)=>{
-    // console.log("hello");
 
     console.log(req.body);
 
-    lineClient.pushMessage(req.body.id, {
+    lineClient.multicast(userid, {
         "type": "image",
         "originalContentUrl": req.body.img,
         "previewImageUrl": req.body.img
