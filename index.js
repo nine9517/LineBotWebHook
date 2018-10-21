@@ -22,9 +22,7 @@ app.get('/',(req,res)=>{
     console.log("hello");
     res.send("Welcome to Line Bot API");
 });
-app.get('/config/token/:token',bodyParser.urlencoded({  
-    extended: true  
-  }),(req,res)=>{
+app.get('/config/token/:token',(req,res)=>{
     config = {
         channelAccessToken: req.params.token,
         channelSecret: '68a1609f570a62390629a9e5c705f742'
@@ -39,9 +37,7 @@ app.post('/webhook',line.middleware(config),(req,res)=>{
     .then((result) => res.json(result));
 });
 
-app.post('/alert/login/facebook',bodyParser.urlencoded({  
-    extended: true  
-  }),(req,res)=>{
+app.post('/alert/login/facebook',bodyParser.json(),(req,res)=>{
     // console.log("hello");
 
     console.log(req.body);
