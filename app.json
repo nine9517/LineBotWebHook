@@ -1,0 +1,6 @@
+{
+    "name": "linebot",
+    "description": "Homework mobile progamming",
+    "image": "heroku/nodejs",
+    "logo":"http://node-js-sample.herokuapp.com/node.svg"
+}

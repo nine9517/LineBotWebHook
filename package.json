@@ -1,0 +1,24 @@
+{
+  "name": "linebot",
+  "version": "1.0.0",
+  "description": "Homework mobile progamming",
+  "engines": {
+    "node": "8.9.1"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js",
+    "nodemon" : "node .//node_modules/nodemon/bin/nodemon.js index.js"
+  },
+  "author": "59161100 Parinyakiat",
+  "license": "ISC",
+  "dependencies": {
+    "@line/bot-sdk": "^6.3.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.4"
+  }
+}
