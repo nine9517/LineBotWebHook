@@ -8,7 +8,7 @@ const cors = require('cors');
 //config server
 const PORT = process.env.PORT || 5000
 const config = {
-    channelAccessToken: '6iv3Lw1+HVm1S8Was+bZ4qEXNZMz9DkwcdPCMNsxjaJ5bVe/jJRPvnUX1UFJwKJZiYz9XkVYyfVpQmwHwqdR1U0x/x9RUx/8BlrYVJaG39ZK17ACAPySL4+7HyQoSiYQebTT62juysiilG9pZhDWoAdB04t89/1O/w1cDnyilFU=',
+    channelAccessToken: 'osKcx5cEgJzfcTPOFqTyYbe/hrYA+fxNY4HqE7HzJYIwcBBtkNdf1a8Ja6SD8dXiiYz9XkVYyfVpQmwHwqdR1U0x/x9RUx/8BlrYVJaG39aLEXADJda6neP87hVVWmD6MqD/q3PeZ7DardvnIDEdsQdB04t89/1O/w1cDnyilFU=',
     channelSecret: '68a1609f570a62390629a9e5c705f742'
   };
 const lineClient = new line.Client(config);
@@ -38,11 +38,14 @@ app.post('/alert/login/facebook',bodyParser.json(),(req,res)=>{
 
     console.log(req.body);
 
-    lineClient.multicast(userid, {
+    lineClient.multicast(userid, [{
         "type": "image",
         "originalContentUrl": req.body.img,
         "previewImageUrl": req.body.img
-    });
+    },{
+        "type": "text",
+        "text":req.body.name
+    }]);
     res.status(200).send("Success");
 });
 
